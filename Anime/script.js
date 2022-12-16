@@ -1,5 +1,3 @@
-// script.js
-
 const API_ENDPOINT = 'https://kitsu.io/api/edge/anime';
 
 // Function to make API request and display the anime image on the screen
@@ -11,33 +9,67 @@ async function searchAnime() {
   const response = await fetch(`${API_ENDPOINT}?filter[text]=${animeTitle}`);
   const data = await response.json();
 
-  // Get the first result from the search (if any)
-  const anime = data.data[0];
+  // Clear any existing search results
+  const searchResults = document.getElementById('search-results');
+  searchResults.innerHTML = '';
 
-  // Check if the anime was found
-  if (anime) {
-    // Create an image element to display the anime image
-    const img = document.createElement('img');
-    img.src = anime.attributes.posterImage.small;
-    img.alt = anime.attributes.titles.en_jp;
+  // Check if the search returned any results
+  if (data.data.length > 0) {
+    // Create an unordered list element for the search results
+    const list = document.createElement('ul');
 
-    // Create a `h2` element to display the anime title
-    const title = document.createElement('h2');
-    title.innerHTML = anime.attributes.titles.en_jp;
+    // Loop through the results
+    data.data.forEach(anime => {
+      // Create a list item element
+      const listItem = document.createElement('li');
 
-    // Clear any existing anime images on the screen
-    const animeImage = document.getElementById('anime-image');
-    animeImage.innerHTML = '';
+      // Create a `h2` element to display the anime title
+      const title = document.createElement('h2');
+      title.innerHTML = anime.attributes.titles.en_jp;
 
-    // Add the new anime image and title to the screen
-    animeImage.appendChild(title);
-    animeImage.appendChild(img);
+      // Add an event listener to the title to handle selection
+      title.addEventListener('click', () => {
+        // Clear the selected anime
+        searchResults.innerHTML = '';
+        const selectedAnime = document.getElementById('selected-anime');
+        selectedAnime.innerHTML = '';
+
+        // Create an image element to display the anime image
+        const img = document.createElement('img');
+        img.src = anime.attributes.posterImage.small;
+        img.alt = anime.attributes.titles.en_jp;
+
+        // Convert the rating to be out of 5 stars
+        const rating = anime.attributes.averageRating / 2;
+
+        // Create a `p` element to display the anime's average rating
+        const ratingElement = document.createElement('p');
+        ratingElement.innerHTML = `Average Rating: ${rating/20}/5`;
+
+        // Add the image, title, and rating to the selected anime element
+        selectedAnime.appendChild(title);
+        selectedAnime.appendChild(img);
+        selectedAnime.appendChild(ratingElement);
+      });
+
+      // Add the title to the list item
+      listItem.appendChild(title);
+
+      // Add the list item to the list
+      list.appendChild(listItem);
+    });
+
+    // Add the list to the search results element
+    searchResults.appendChild(list);
   } else {
-    // If the anime was not found, display an error message
-    const animeImage = document.getElementById('anime-image');
-    animeImage.innerHTML = 'Anime not found.';
+    // If the search returned no results, display an error message
+    const p = document.createElement('p');
+    p.innerHTML = 'No anime found.';
+    searchResults.appendChild(p);
   }
 }
+
+
 
 // Listen for clicks on the search button
 const searchButton = document.getElementById('search-button');

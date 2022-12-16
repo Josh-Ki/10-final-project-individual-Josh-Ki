@@ -29,7 +29,46 @@ h1 {
   cursor: pointer;
 }
 
-#anime-image {
-  margin: 0 auto;
+#results-container {
+  display: flex;
+  flex-direction: row;
+}
+
+#search-results {
+  width: 50%;
+}
+
+#selected-anime {
+  width: 50%;
   text-align: center;
+}
+
+#search-results ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#search-results li {
+  display: flex;
+  align-items: center;
+}
+
+#search-results h2 {
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+#search-results h2:hover {
+  color: #0000ff;
+}
+
+#search-results img {
+  width: 100px;
+  height: 150px;
+}
+
+#selected-anime img {
+  width: 250px;
+  height: 375px;
 }
