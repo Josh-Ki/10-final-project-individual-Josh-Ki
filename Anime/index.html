@@ -1,24 +1,43 @@
-<!-- index.html -->
-
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
   <title>Anime Search</title>
-  <link rel="stylesheet" type="text/css" href="styles.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-  <div id="search-container">
-    <input type="text" id="search-input" placeholder="Enter anime title" />
-    <button id="search-button">Search</button>
-  </div>
-  <div id="results-container">
+  <header>
+    <div id="trending-banner">Trending Anime</div>
+    <div id="trending-anime"></div>
+  </header>
+  
+  <div id="main-content">
+    <div>
+      <label for="search-input">Search for anime:</label>
+      <input type="text" id="search-input" placeholder="Search for anime" aria-label="Search for anime">
+      <button id="search-button" aria-label="Search">Search</button>
+    </div>
     <div id="search-results"></div>
-    <div id="selected-anime"></div>
+    <div id="results-container">
+      <div id="selected-anime-1"></div>
+      <div id="selected-anime-2"></div>
+    </div>
+    
+    <h2 id="upcoming"> Upcoming Anime This Month</h2>
+    <table id="calendar">
+      <thead>
+        <tr>
+          <th>Sun</th>
+          <th>Mon</th>
+          <th>Tue</th>
+          <th>Wed</th>
+          <th>Thu</th>
+          <th>Fri</th>
+          <th>Sat</th>
+        </tr>
+      </thead>
+      <tbody id="calendar-body"></tbody>
+    </table>
   </div>
-
   <script src="script.js"></script>
 </body>
-
 </html>
