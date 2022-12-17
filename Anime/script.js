@@ -1,8 +1,5 @@
 const API_ENDPOINT = 'https://kitsu.io/api/edge/anime';
 
-
-
-
 async function getTrendingAnime() {
   const response = await fetch(`${API_ENDPOINT}?sort=-averageRating&page[limit]=5`);
   const data = await response.json();
@@ -27,7 +24,6 @@ async function showTrendingAnime() {
     container.appendChild(animeDiv);
 
     title.addEventListener('click', () => {
-      console.log("DSLKF")
       const selectedAnime = document.getElementById('selected-anime');
 
       const img = document.createElement('img');
